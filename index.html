@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お祝いページ</title>
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    
+    /* Header */
+    header {
+      border-bottom: 1px solid #eee;
+      background-color: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(4px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    
+    .header-content {
+      display: flex;
+      height: 64px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: bold;
+      font-size: 1.25rem;
+    }
+    
+    .logo-icon {
+      color: #ec4899;
+    }
+    
+    nav {
+      display: none;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    
+    .nav-link:hover {
+      color: #ec4899;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      font-weight: 500;
+      font-size: 0.875rem;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #fbd5e0;
+    }
+    
+    .btn-outline:hover {
+      background-color: #fce7f3;
+      color: #be185d;
+    }
+    
+    .btn-primary {
+      background-color: #ec4899;
+      color: white;
+      border: none;
+    }
+    
+    .btn-primary:hover {
+      background-color: #db2777;
+    }
+    
+    /* Hero Section */
+    .hero {
+      position: relative;
+      padding: 5rem 0 8rem;
+      overflow: hidden;
+    }
+    
+    .confetti-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.2;
+    }
+    
+    .confetti {
+      position: absolute;
+      border-radius: 50%;
+      background-color: #f9a8d4;
+      animation: float 10s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+    
+    .hero-content {
+      text-align: center;
+    }
+    
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(to right, #ec4899, #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .hero-description {
+      font-size: 1.125rem;
+      color: #4b5563;
+      max-width: 36rem;
+      margin: 0 auto 2.5rem;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* Event Details */
+    .event-details {
+      padding: 4rem 0;
+      background-color: white;
+    }
+    
+    .section-title {
+      font-size: 1.875rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .cards-grid {
+      display: grid;
+      gap: 2rem;
+    }
+    
+    .card {
+      border: 1px solid #fce7f3;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      transition: box-shadow 0.2s;
+    }
+    
+    .card:hover {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-content {
+      padding: 1.5rem;
+    }
+    
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .icon-circle {
+      background-color: #fce7f3;
+      padding: 0.75rem;
+      border-radius: 9999px;
+      color: #ec4899;
+    }
+    
+    .card-title {
+      font-weight: 500;
+    }
+    
+    .card-subtitle {
+      color: #4b5563;
+    }
+    
+    .card-text {
+      color: #6b7280;
+      font-size: 0.875rem;
+    }
+    
+    /* Gallery */
+    .gallery {
+      padding: 4rem 0;
+      background-color: #fdf2f8;
+    }
+    
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    
+    .gallery-item {
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.2s;
+    }
+    
+    .gallery-item:hover {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .gallery-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    
+    .gallery-img:hover {
+      transform: scale(1.05);
+    }
+    
+    /* Messages */
+    .messages {
+      padding: 4rem 0;
+      background-color: white;
+    }
+    
+    .messages-grid {
+      display: grid;
+      gap: 1.5rem;
+      max-width: 48rem;
+      margin: 0 auto;
+    }
+    
+    .message-card {
+      border: 1px solid #fce7f3;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .message-header {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #f3f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #6b7280;
+    }
+    
+    .message-name {
+      font-weight: 500;
+    }
+    
+    .message-role {
+      color: #6b7280;
+      font-size: 0.875rem;
+    }
+    
+    .message-text {
+      color: #4b5563;
+    }
+    
+    .message-footer {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1rem;
+    }
+    
+    .heart-icon {
+      color: #f472b6;
+    }
+    
+    .text-center {
+      text-align: center;
+    }
+    
+    .mt-10 {
+      margin-top: 2.5rem;
+    }
+    
+    /* Contact */
+    .contact {
+      padding: 4rem 0;
+      background: linear-gradient(to bottom, #fdf2f8, #f5f3ff);
+    }
+    
+    .contact-form {
+      max-width: 28rem;
+      margin: 0 auto;
+    }
+    
+    .form-card {
+      border: 1px solid #fce7f3;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .form-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    .form-input {
+      width: 100%;
+      border-radius: 0.375rem;
+      border: 1px solid #fbd5e0;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.3);
+    }
+    
+    .form-textarea {
+      width: 100%;
+      border-radius: 0.375rem;
+      border: 1px solid #fbd5e0;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      resize: vertical;
+      min-height: 100px;
+    }
+    
+    .form-textarea:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.3);
+    }
+    
+    .w-full {
+      width: 100%;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: white;
+      border-top: 1px solid #e5e7eb;
+      padding: 2rem 0;
+    }
+    
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .footer-text {
+      color: #6b7280;
+      font-size: 0.875rem;
+    }
+    
+    /* Media Queries */
+    @media (min-width: 768px) {
+      .hero-title {
+        font-size: 3.75rem;
+      }
+      
+      .hero-description {
+        font-size: 1.25rem;
+      }
+      
+      .hero-buttons {
+        flex-direction: row;
+      }
+      
+      nav {
+        display: flex;
+      }
+      
+      .cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      
+      .messages-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      
+      .footer-logo {
+        margin-bottom: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <span class="logo-icon">🎉</span>
+          <span>お祝い</span>
+        </div>
+        <nav>
+          <div class="nav-links">
+            <a href="#event" class="nav-link">イベント詳細</a>
+            <a href="#gallery" class="nav-link">ギャラリー</a>
+            <a href="#messages" class="nav-link">メッセージ</a>
+            <a href="#contact" class="nav-link">お問い合わせ</a>
+          </div>
+        </nav>
+        <button class="btn btn-outline" style="display: none;">RSVP</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="confetti-bg" id="confetti-container"></div>
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="hero-title">おめでとうございます！</h1>
+          <p class="hero-description">
+            特別な日をみんなで祝いましょう。この素晴らしい瞬間を共有できることを嬉しく思います。
+          </p>
+          <div class="hero-buttons">
+            <button class="btn btn-primary">
+              🎁 お祝いを送る
+            </button>
+            <button class="btn btn-outline">
+              詳細を見る
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Event Details -->
+    <section id="event" class="event-details">
+      <div class="container">
+        <h2 class="section-title">イベント詳細</h2>
+        <div class="cards-grid">
+          <div class="card">
+            <div class="card-content">
+              <div class="card-header">
+                <div class="icon-circle">
+                  📅
+                </div>
+                <div>
+                  <h3 class="card-title">日付</h3>
+                  <p class="card-subtitle">2025年4月15日</p>
+                </div>
+              </div>
+              <p class="card-text">
+                特別な日をマークしてカレンダーに登録しておきましょう。
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-content">
+              <div class="card-header">
+                <div class="icon-circle">
+                  📍
+                </div>
+                <div>
+                  <h3 class="card-title">場所</h3>
+                  <p class="card-subtitle">東京ガーデンホール</p>
+                </div>
+              </div>
+              <p class="card-text">
+                美しい景色に囲まれた素敵な会場でお待ちしております。
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-content">
+              <div class="card-header">
+                <div class="icon-circle">
+                  🕒
+                </div>
+                <div>
+                  <h3 class="card-title">時間</h3>
+                  <p class="card-subtitle">午後2時〜午後8時</p>
+                </div>
+              </div>
+              <p class="card-text">
+                素敵な時間を一緒に過ごしましょう。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="gallery">
+      <div class="container">
+        <h2 class="section-title">ギャラリー</h2>
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="https://via.placeholder.com/300x300?text=写真1" alt="お祝い写真 1" class="gallery-img">
+          </div>
+          <div class="gallery-item">
+            <img src="https://via.placeholder.com/300x300?text=写真2" alt="お祝い写真 2" class="gallery-img">
+          </div>
+          <div class="gallery-item">
+            <img src="https://via.placeholder.com/300x300?text=写真3" alt="お祝い写真 3" class="gallery-img">
+          </div>
+          <div class="gallery-item">
+            <img src="https://via.placeholder.com/300x300?text=写真4" alt="お祝い写真 4" class="gallery-img">
+          </div>
+          <div class="gallery-item">
+            <img src="https://via.placeholder.com/300x300?text=写真5" alt="お祝い写真 5" class="gallery-img">
+          </div>
+          <div class="gallery-item">
+            <img src="https://via.placeholder.com/300x300?text=写真6" alt="お祝い写真 6" class="gallery-img">
+          </div>
+          <div class="gallery-item">
+            <img src="https://via.placeholder.com/300x300?text=写真7" alt="お祝い写真 7" class="gallery-img">
+          </div>
+          <div class="gallery-item">
+            <img src="https://via.placeholder.com/300x300?text=写真8" alt="お祝い写真 8" class="gallery-img">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Messages -->
+    <section id="messages" class="messages">
+      <div class="container">
+        <h2 class="section-title">お祝いメッセージ</h2>
+        <div class="messages-grid">
+          <div class="card message-card">
+            <div class="card-content">
+              <div class="message-header">
+                <div class="avatar">S</div>
+                <div>
+                  <h3 class="message-name">田中さくら</h3>
+                  <p class="message-role">ゲスト</p>
+                </div>
+              </div>
+              <p class="message-text">心からおめでとうございます！これからの新しい門出を心よりお祝い申し上げます。</p>
+              <div class="message-footer">
+                <span class="heart-icon">❤️</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card message-card">
+            <div class="card-content">
+              <div class="message-header">
+                <div class="avatar">H</div>
+                <div>
+                  <h3 class="message-name">佐藤ひろし</h3>
+                  <p class="message-role">ゲスト</p>
+                </div>
+              </div>
+              <p class="message-text">おめでとうございます！素晴らしい日になりますように。いつも応援しています。</p>
+              <div class="message-footer">
+                <span class="heart-icon">❤️</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card message-card">
+            <div class="card-content">
+              <div class="message-header">
+                <div class="avatar">M</div>
+                <div>
+                  <h3 class="message-name">鈴木まこと</h3>
+                  <p class="message-role">ゲスト</p>
+                </div>
+              </div>
+              <p class="message-text">心よりお祝い申し上げます。これからの未来が幸せに満ちていますように。</p>
+              <div class="message-footer">
+                <span class="heart-icon">❤️</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card message-card">
+            <div class="card-content">
+              <div class="message-header">
+                <div class="avatar">A</div>
+                <div>
+                  <h3 class="message-name">山田あおい</h3>
+                  <p class="message-role">ゲスト</p>
+                </div>
+              </div>
+              <p class="message-text">おめでとう！この特別な日を一緒にお祝いできることを嬉しく思います。</p>
+              <div class="message-footer">
+                <span class="heart-icon">❤️</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-10">
+          <button class="btn btn-primary">
+            メッセージを送る
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <h2 class="section-title">お問い合わせ</h2>
+        <div class="contact-form">
+          <div class="card form-card">
+            <div class="card-content">
+              <form class="form">
+                <div class="form-group">
+                  <label for="name" class="form-label">
+                    お名前
+                  </label>
+                  <input
+                    id="name"
+                    class="form-input"
+                    placeholder="山田太郎"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="email" class="form-label">
+                    メールアドレス
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    class="form-input"
+                    placeholder="example@mail.com"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="message" class="form-label">
+                    メッセージ
+                  </label>
+                  <textarea
+                    id="message"
+                    rows="4"
+                    class="form-textarea"
+                    placeholder="お問い合わせ内容をご記入ください"
+                  ></textarea>
+                </div>
+                <button class="btn btn-primary w-full">
+                  送信する
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <span class="logo-icon">🎉</span>
+          <span class="font-bold">お祝い</span>
+        </div>
+        <p class="footer-text">
+          © <script>document.write(new Date().getFullYear())</script> お祝いページ. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Create confetti background
+    document.addEventListener('DOMContentLoaded', function() {
+      const container = document.getElementById('confetti-container');
+      
+      // Create 50 confetti elements
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        
+        // Random size
+        const size = Math.random() * 20 + 5;
+        confetti.style.width = `${size}px`;
+        confetti.style.height = `${size}px`;
+        
+        // Random position
+        confetti.style.left = `${Math.random() * 100}%`;
+        confetti.style.top = `${Math.random() * 100}%`;
+        
+        // Random animation duration and delay
+        confetti.style.animationDuration = `${Math.random() * 10 + 5}s`;
+        confetti.style.animationDelay = `${Math.random() * 5}s`;
+        
+        container.appendChild(confetti);
+      }
+      
+      // Show RSVP button on desktop
+      const rsvpButton = document.querySelector('.btn-outline');
+      if (window.innerWidth >= 768) {
+        rsvpButton.style.display = 'flex';
+      }
+      
+      // Update RSVP button visibility on resize
+      window.addEventListener('resize', function() {
+        if (window.innerWidth >= 768) {
+          rsvpButton.style.display = 'flex';
+        } else {
+          rsvpButton.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
